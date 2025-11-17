@@ -23,7 +23,7 @@
                         <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">Tanggal Request</th>
                         <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">Tanggal Kembali</th>
                         <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">Keterangan Pengunjung</th>
-                        <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">Status</th>
+                        <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">Status Request</th>
                         <th class="px-6 py-3 text-center font-semibold text-gray-900">Aksi</th>
                     </tr>
                 </thead>
@@ -48,15 +48,19 @@
 
                         <td class="px-6 py-4 border-r">
                             @if($req->status === 'pending')
-                            <span class="px-3 py-1 bg-yellow-100 text-yellow-800 border border-yellow-400 rounded-full text-xs font-semibold">
+                            <span class="px-3 py-1 bg-yellow-50 text-yellow-700 border border-yellow-300 rounded-full text-xs font-medium shadow-sm">
                                 Menunggu
                             </span>
                             @elseif($req->status === 'approved')
-                            <span class="px-3 py-1 bg-green-100 text-green-800 border border-green-400 rounded-full text-xs font-semibold">
+                            <span class="px-3 py-1 bg-emerald-50 text-emerald-700 border border-emerald-300 rounded-full text-xs font-medium shadow-sm">
                                 Disetujui
                             </span>
+                            @elseif($req->status === 'returned')
+                            <span class="px-3 py-1 bg-blue-50 text-blue-700 border border-blue-300 rounded-full text-xs font-medium shadow-sm">
+                                Dikembalikan
+                            </span>
                             @else
-                            <span class="px-3 py-1 bg-red-100 text-red-800 border border-red-400 rounded-full text-xs font-semibold">
+                            <span class="px-3 py-1 bg-red-50 text-red-700 border border-red-300 rounded-full text-xs font-medium shadow-sm">
                                 Ditolak
                             </span>
                             @endif
@@ -79,7 +83,7 @@
                                     Tolak
                                 </button>
                             </form>
-                            @else
+                            @elseif($req->status === 'returned')
                             <span class="text-gray-500 italic text-sm">Selesai</span>
                             @endif
                         </td>

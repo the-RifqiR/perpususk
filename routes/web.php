@@ -26,7 +26,7 @@ Route::middleware('auth', 'role:petugas')->group(function () {
     Route::put('/requests/{req}/status', [RequestPeminjamanController::class, 'updateStatus'])->name('requests.updateStatus');
 
     Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
-    Route::put('/transactions/{transaction}/return', [TransactionController::class, 'updateStatus'])->name('transactions.return ');
+    Route::put('/transactions/{transaction}/return', [TransactionController::class, 'updateStatus'])->name('transactions.return');
 });
 
 Route::middleware('auth', 'role:pengunjung')->group(function () {

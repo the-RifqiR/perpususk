@@ -22,7 +22,7 @@
                         <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">Tanggal Pinjam</th>
                         <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">Tanggal Kembali</th>
                         <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">Tanggal Dikembalikan</th>
-                        <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">Status</th>
+                        <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">Status Peminjaman</th>
                         <th class="px-6 py-3 text-center font-semibold text-gray-900">Aksi</th>
                     </tr>
                 </thead>

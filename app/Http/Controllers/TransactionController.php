@@ -40,7 +40,7 @@ class TransactionController extends Controller
                 if ($transaction->request_id) {
                     $request = RequestPeminjaman::find($transaction->request_id);
                     if ($request) {
-                        $request->update(['status' => 'selesai']);
+                        $request->update(['status' => 'returned']);
                     }
                 }
             });
