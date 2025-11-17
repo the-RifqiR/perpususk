@@ -81,6 +81,7 @@
                     @endforelse
                 </tbody>
             </table>
+            {{$transactions->links()}}
         </div>
     </div>
 </div>

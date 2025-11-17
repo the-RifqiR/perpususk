@@ -33,7 +33,7 @@
                 <tbody>
                     @foreach($users as $u)
                     <tr class="border-b border-gray-200 hover:bg-gray-50">
-                        <td class="px-6 py-4 border-r">{{ $loop->iteration }}</td>
+                        <td class="px-6 py-4 border-r"> {{$users->firstItem() + $loop->index }}</td>
                         <td class="px-6 py-4 border-r">{{ $u->name }}</td>
                         <td class="px-6 py-4 border-r">{{ $u->username }}</td>
                         <td class="px-6 py-4 border-r">
@@ -68,6 +68,7 @@
                     @endif
                 </tbody>
             </table>
+            {{ $users->links() }}
         </div>
     </div>
 </div>

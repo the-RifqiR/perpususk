@@ -6,15 +6,16 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
+
 class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::latest()->paginate(15);;
         return view('users.index', compact('users'));
     }
 
- 
+
     public function create()
     {
         // Beri data roles ke halaman create

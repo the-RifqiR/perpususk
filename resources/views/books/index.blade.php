@@ -42,8 +42,8 @@
                         <td class="px-6 py-4 border-r">{{ $loop->iteration }}</td>
 
                         <td class="px-6 py-4 border-r">
-                            <img src="{{$book->gambar ? asset('storage/' . $book->gambar) : asset('images/book-placeholder.png') }}" class="w-12 h-16 object-cover border rounded">
- 
+                            <img src="{{ $book->gambar_url ? $book->gambar_url : asset('storage/'.$book->gambar) }}" class="w-12 h-16 object-cover border rounded">
+
                         </td>
 
                         <td class="px-6 py-4 border-r">
@@ -96,6 +96,7 @@
                     @endforelse
                 </tbody>
             </table>
+            {{ $books->links() }}
         </div>
     </div>
 

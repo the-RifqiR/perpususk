@@ -13,7 +13,7 @@ class TransactionController extends Controller
     // Petugas lihat semua transaksi
     public function index()
     {
-        $transactions = Transaction::with(['pengunjung', 'book', 'request'])->latest()->get();
+        $transactions = Transaction::with(['pengunjung', 'book', 'request'])->latest()->paginate(15);
         return view('transactions.index', compact('transactions'));
     }
 

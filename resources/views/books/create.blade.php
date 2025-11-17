@@ -66,8 +66,15 @@
 
         <div>
             <label for="gambar" class="block text-black mb-1">Gambar Buku</label>
-            <input type="file" name="gambar" id="gambar"
-                class="w-full border border-black rounded-md p-2 focus:outline-none hover:border-gray-700 transition bg-white">
+            <input type="file" name="gambar"
+                class="w-full border border-black rounded-md p-2 bg-white mb-3">
+
+            <input type="url" name="gambar_url" placeholder="https://contoh.com/gambar.jpg"
+                class="w-full px-3 py-2 border border-black rounded-md bg-white"
+                value="{{ old('gambar_url') }}">
+            <small class="text-gray-600 text-sm">
+                Isi URL jika ingin mengambil gambar dari internet
+            </small>
         </div>
 
         <!-- Tombol Simpan -->
@@ -81,4 +88,13 @@
         </a>
     </form>
 </div>
+
+<script>
+    function toggleInput() {
+        const mode = document.querySelector('input[name="gambar_mode"]:checked').value;
+
+        document.getElementById("gambar_file").classList.toggle("hidden", mode !== "file");
+        document.getElementById("gambar_url").classList.toggle("hidden", mode !== "url");
+    }
+</script>
 @endsection

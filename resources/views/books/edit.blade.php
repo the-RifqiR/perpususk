@@ -65,13 +65,22 @@
         <!-- Gambar Buku -->
         <div>
             <label for="gambar" class="block text-black mb-1">Gambar Buku</label>
-            @if($book->gambar)
-            <div class="mb-2">
-                <img src="{{ asset('storage/' . $book->gambar) }}" alt="Gambar Buku" class="w-24 h-24 object-cover border border-black rounded">
-            </div>
+            @if($book->gambar || $book->gambar_url)
+            <img src="{{ $book->gambar_url ? $book->gambar_url : asset('storage/'.$book->gambar) }}"
+                class="w-24 h-24 object-cover border rounded mb-3">
             @endif
-            <input type="file" name="gambar" id="gambar"
-                class="w-full border border-black rounded-md p-2 focus:outline-none hover:border-gray-700 transition bg-white">
+
+            <input type="file" name="gambar"
+                class="w-full border border-black rounded-md p-2 bg-white mb-3">
+
+            <input type="url" name="gambar_url"
+                value="{{ old('gambar_url', $book->gambar_url) }}"
+                placeholder="https://contoh.com/gambar.jpg"
+                class="w-full px-3 py-2 border border-black rounded-md bg-white">
+
+            <small class="text-gray-600 text-sm">
+                Isi URL jika ingin mengganti dengan gambar dari internet
+            </small>
         </div>
 
         <!-- Tombol Simpan -->

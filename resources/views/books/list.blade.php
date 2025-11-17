@@ -18,7 +18,7 @@
             {{-- Book Image --}}
             <div class="relative h-48 bg-gray-200 overflow-hidden">
                 <img
-                    src="{{ $book->gambar ? asset('storage/'.$book->gambar) : asset('images/book-placeholder.png') }}"
+                    src="{{ $book->gambar_url ? $book->gambar_url : asset('storage/'.$book->gambar) }}"
                     alt="{{ $book->judul }}"
                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
                 {{-- Stock Badge --}}
