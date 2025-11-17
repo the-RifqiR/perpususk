@@ -28,6 +28,7 @@
                         <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">No</th>
                         <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">Gambar</th>
                         <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">Judul</th>
+                        <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">Deskripsi</th>
                         <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">Penulis</th>
                         <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">Kategori</th>
                         <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">Tanggal & Tahun</th>
@@ -39,16 +40,24 @@
                 <tbody>
                     @forelse($books as $book)
                     <tr class="border-b border-gray-300 hover:bg-gray-100">
-                        <td class="px-6 py-4 border-r">{{ $loop->iteration }}</td>
+                        <td class="px-6 py-4 border-r">{{ $books->firstItem() + $loop->index }}</td>
 
                         <td class="px-6 py-4 border-r">
-                            <img src="{{ $book->gambar_url ? $book->gambar_url : asset('storage/'.$book->gambar) }}" class="w-12 h-16 object-cover border rounded">
-
+                            @if ($book->gambar_url)
+                            <img src="{{ $book->gambar_url }}" ...>
+                            @elseif($book->gambar)
+                            <img src="{{ asset('storage/'.$book->gambar) }}" ...>
+                            @else
+                            <div class="w-12 h-16 bg-gray-200 border rounded flex items-center justify-center">
+                                <i class="fas fa-image text-gray-500"></i>
+                            </div>
+                            @endif
                         </td>
 
                         <td class="px-6 py-4 border-r">
                             <p class="font-medium text-gray-900 line-clamp-2">{{ $book->judul }}</p>
                         </td>
+
                         <td class="px-6 py-4 border-r">
                             <p class="text-xs text-gray-900 line-clamp-1">{{ $book->deskripsi }}</p>
                         </td>
@@ -69,10 +78,10 @@
                             </span>
                         </td>
 
-                        <td class="px-6 py-4 text-center space-x-2">
-                            <a href="{{ route('petugas.edit', $book) }}"
-                                class="px-3 py-1.5 bg-blue-600 text-white rounded text-sm hover:bg-blue-700 inline-block">
-                                <i class="fas fa-edit mr-1"></i>Edit
+                        <td class="px-6 py-4 flex justify-center items-center gap-2"">
+                            <a href=" {{ route('petugas.edit', $book) }}"
+                            class="px-3 py-1.5 bg-blue-600 text-white rounded text-sm hover:bg-blue-700 inline-flex items-center">
+                            <i class="fas fa-edit mr-1"></i>Edit
                             </a>
 
                             <form action="{{ route('petugas.destroy', $book) }}" method="POST" class="inline"
