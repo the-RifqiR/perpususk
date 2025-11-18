@@ -18,6 +18,7 @@
                     <tr class="bg-white border-b border-gray-300">
                         <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">#</th>
                         <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">Pengunjung</th>
+                        <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">Petugas Menangani</th>
                         <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">Buku</th>
                         <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">Tanggal Pinjam</th>
                         <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">Tanggal Kembali</th>
@@ -35,6 +36,11 @@
                         <td class="px-6 py-4 border-r">
                             <p class="font-medium text-gray-900">{{ $t->pengunjung->name }}</p>
                             <p class="text-xs text-gray-500">{{ $t->pengunjung->username ?? '-' }}</p>
+                        </td>
+                        
+                        <td class="px-6 py-4 border-r">
+                            <p class="font-medium text-gray-900">{{ $t->petugas->name }}</p>
+                            <p class="text-xs text-gray-500">{{ $t->petugas->username ?? '-' }}</p>
                         </td>
 
                         <td class="px-6 py-4 border-r">{{ $t->book?->judul ?? '⚠️ Buku Terhapus' }}</td>

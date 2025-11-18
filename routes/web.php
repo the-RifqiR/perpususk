@@ -6,6 +6,7 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\RequestPeminjamanController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
+use App\Models\Transaction;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [BookController::class, 'public'])->name('books.public');
@@ -33,4 +34,5 @@ Route::middleware('auth', 'role:pengunjung')->group(function () {
     Route::get('/requests/create/{book}', [RequestPeminjamanController::class, 'create'])->name('requests.create');
     Route::post('/requests/store/{book}', [RequestPeminjamanController::class, 'store'])->name('requests.store');
     Route::get('/books', [BookController::class, 'pengunjungDashboard'])->name('books.list');
+    Route::get('/transactons/pengunjung', [TransactionController::class, 'pengunjungDashboard'])->name('pengunjung.list');
 });

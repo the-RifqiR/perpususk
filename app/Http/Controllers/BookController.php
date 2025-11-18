@@ -31,7 +31,7 @@ class BookController extends Controller
     {
         $books = Book::latest()->paginate(15);
 
-        $userRequests = RequestPeminjaman::where('user_id', Auth::id())->whereIn('status', ['pending', 'approved'])->get()->keyBy('book_id')->latest()->paginate(15);
+        $userRequests = RequestPeminjaman::where('user_id', Auth::id())->whereIn('status', ['pending', 'approved'])->latest()->paginate(15);
         return view('books.list', compact('books', 'userRequests'));
     }
 

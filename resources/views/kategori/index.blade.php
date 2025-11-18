@@ -38,7 +38,7 @@
                         @forelse($kategoris as $k)
                         <tr class="border-b border-gray-300 hover:bg-gray-100">
 
-                            <td class="px-6 py-4 border-r">{{ $loop->iteration }}</td>
+                            <td class="px-6 py-4 border-r">{{ $kategoris->firstItem() + $loop->index }}</td>
 
                             <td class="px-6 py-4 border-r">
                                 <div class="flex items-center space-x-3">
@@ -80,8 +80,8 @@
                         </tr>
                         @endforelse
                     </tbody>
-
                 </table>
+                {{$kategoris->links()}}
             </div>
         </div>
 

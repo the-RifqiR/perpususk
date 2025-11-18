@@ -41,7 +41,7 @@
                         <td class="px-6 py-4 border-r">{{ $req->book->judul }}</td>
 
                         <td class="px-6 py-4 border-r">{{ $req->created_at->format('d M Y H:i') }}</td>
-                    
+
                         <td class="px-6 py-4 border-r">{{ $req->tanggal_kembali->format('d M Y H:i') }}</td>
 
                         <td class="px-6 py-4 border-r">{{ $req->keterangan }}</td>
@@ -65,24 +65,30 @@
                             </span>
                             @endif
                         </td>
-
                         <td class="px-6 py-4 text-center">
                             @if($req->status === 'pending')
-                            <form action="{{ route('requests.updateStatus', $req->id) }}" method="POST" class="inline">
-                                @csrf @method('PUT')
-                                <input type="hidden" name="status" value="approved">
-                                <button class="px-3 py-1.5 bg-green-600 text-white rounded text-sm hover:bg-green-700 mr-2">
-                                    Terima
-                                </button>
-                            </form>
+                            <div class="flex items-center justify-center space-x-2">
 
-                            <form action="{{ route('requests.updateStatus', $req->id) }}" method="POST" class="inline">
-                                @csrf @method('PUT')
-                                <input type="hidden" name="status" value="rejected">
-                                <button class="px-3 py-1.5 bg-red-600 text-white rounded text-sm hover:bg-red-700">
-                                    Tolak
-                                </button>
-                            </form>
+                                <form action="{{ route('requests.updateStatus', $req->id) }}" method="POST">
+                                    @csrf @method('PUT')
+                                    <input type="hidden" name="status" value="approved">
+                                    <button
+                                        class="px-2 py-1 bg-green-600 text-white rounded text-xs font-medium hover:bg-green-700 whitespace-nowrap">
+                                        ✔ Terima
+                                    </button>
+                                </form>
+
+                                <form action="{{ route('requests.updateStatus', $req->id) }}" method="POST">
+                                    @csrf @method('PUT')
+                                    <input type="hidden" name="status" value="rejected">
+                                    <button
+                                        class="px-2 py-1 bg-red-600 text-white rounded text-xs font-medium hover:bg-red-700 whitespace-nowrap">
+                                        ✖ Tolak
+                                    </button>
+                                </form>
+
+                            </div>
+
                             @elseif($req->status === 'returned')
                             <span class="text-gray-500 italic text-sm">Selesai</span>
                             @endif
