@@ -12,9 +12,9 @@ class Transaction extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id_book',
-        'id_pengunjung',
-        'id_petugas',
+        'book_id',
+        'users_id_pengunjung',
+        'users_id_petugas',
         'request_id',
         'status',
         'tanggal_dipinjam',
@@ -25,19 +25,19 @@ class Transaction extends Model
     // relasi 1 transaksi cuman punya 1 buku
     public function book()
     {
-        return $this->belongsTo(Book::class, 'id_book');
+        return $this->belongsTo(Book::class, 'book_id');
     }
 
     // relasi 1 transaksi cuman punya 1 pengunjung
     public function pengunjung()
     {
-        return $this->belongsTo(User::class, 'id_pengunjung');
+        return $this->belongsTo(User::class, 'users_id_pengunjung');
     }
 
     // relasi 1 transaksi cuman punya 1 petugas
     public function petugas()
     {
-        return $this->belongsTo(User::class, 'id_petugas');
+        return $this->belongsTo(User::class, 'users_id_petugas');
     }
 
     public function request()

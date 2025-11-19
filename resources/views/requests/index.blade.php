@@ -19,6 +19,7 @@
                     <tr class="bg-white border-b border-gray-300">
                         <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">No</th>
                         <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">Pengunjung</th>
+                        <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">Petugas Menangani</th>
                         <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">Buku</th>
                         <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">Tanggal Request</th>
                         <th class="px-6 py-3 text-left font-semibold text-gray-900 border-r">Tanggal Kembali</th>
@@ -34,9 +35,19 @@
                         <td class="px-6 py-4 border-r">{{ $requests->firstItem() +$loop->index }}</td>
 
                         <td class="px-6 py-4 border-r">
-                            <p class="font-medium text-gray-900">{{ $req->user->name }}</p>
-                            <p class="text-xs text-gray-500">{{ $req->user->email }}</p>
+                            <p class="font-medium text-gray-900">{{ $req->user->name ?? '⚠️ Akun Terhapus' }}</p>
+                            <p class="text-xs text-gray-500">{{ $req->user->username ?? '-' }}</p>
                         </td>
+                        @if($req->id_petugas)
+                        <td class="px-6 py-4 border-r">
+                            <p class="font-medium text-gray-900">{{ $req->petugas->name ?? '⚠️ Akun Terhapus'  }}</p>
+                            <p class="text-xs text-gray-500">{{ $req->petugas->username ?? '-' }}</p>
+                        </td>
+                        @else
+                        <td class="px-6 py-4 border-r">
+                            <p class="font-medium text-gray-900">-</p>
+                        </td>
+                        @endif
 
                         <td class="px-6 py-4 border-r">{{ $req->book->judul }}</td>
 

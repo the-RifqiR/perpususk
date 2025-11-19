@@ -11,6 +11,7 @@ class RequestPeminjaman extends Model
 
     protected $fillable = [
         'user_id',
+        'id_petugas',
         'book_id',
         'status',
         'keterangan',
@@ -27,6 +28,10 @@ class RequestPeminjaman extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function petugas(){
+        return $this->belongsTo(User::class, 'id_petugas');
     }
 
     // Relasi: satu request terkait dengan satu buku

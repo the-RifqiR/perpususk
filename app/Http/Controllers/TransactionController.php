@@ -6,7 +6,6 @@ use App\Models\RequestPeminjaman;
 use App\Models\Transaction;
 use App\Models\Book;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
@@ -14,14 +13,8 @@ class TransactionController extends Controller
     // Petugas lihat semua transaksi
     public function index()
     {
-        $transactions = Transaction::with(['pengunjung', 'book', 'request', 'petugas'])->latest()->paginate(15);
+        $transactions = Transaction::with(['pengunjung', 'book', 'request'])->latest()->get();
         return view('transactions.index', compact('transactions'));
-    }
-
-    public function pengunjungDashboard(){
-        $transactions = Transaction::where('id_pengunjung', Auth::id())->with(['book', 'pengunjung', 'petugas'])->latest()->paginate(15);
-
-        return view('transactions.list', compact('transactions'));
     }
 
     // Ubah status menjadi dikembalikan
@@ -29,7 +22,7 @@ class TransactionController extends Controller
     {
         try {
             DB::transaction(function () use ($transaction) {
-                
+                // Lock book row to prevent race conditions
                 $book = Book::where('id', $transaction->id_book)->lockForUpdate()->first();
 
                 // Update transaction
@@ -43,11 +36,11 @@ class TransactionController extends Controller
                     $book->increment('stok');
                 }
 
-              
+                // Update related request status
                 if ($transaction->request_id) {
                     $request = RequestPeminjaman::find($transaction->request_id);
                     if ($request) {
-                        $request->update(['status' => 'returned']);
+                        $request->update(['status' => 'selesai']);
                     }
                 }
             });

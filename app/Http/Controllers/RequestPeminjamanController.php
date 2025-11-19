@@ -15,7 +15,7 @@ class RequestPeminjamanController extends Controller
     // kirim 
     public function index()
     {
-        $requests = RequestPeminjaman::with(['user', 'book'])->latest()->paginate(15);
+        $requests = RequestPeminjaman::with(['user', 'book'])->latest()->get();
         return view('requests.index', compact('requests'));
     }
 
@@ -30,7 +30,7 @@ class RequestPeminjamanController extends Controller
         // Check id buku
         $book = Book::findOrFail($book_id);
 
-        if (Auth::user()->role !== 'pengunjung') {
+        if(Auth::user()->role !== 'pengunjung'){
             abort(403);
         }
 
@@ -45,7 +45,7 @@ class RequestPeminjamanController extends Controller
             ->where('book_id', $book->id)
             ->whereIn('status', ['pending', 'approved'])
             ->exists();
-
+        
         if ($exists) {
             return redirect()->back()->with('error', 'Anda sudah memiliki permintaan untuk buku ini yang sedang diproses.');
         }
@@ -103,12 +103,9 @@ class RequestPeminjamanController extends Controller
             }
         } else {
             // Untuk perubahan status selain approved, hanya update status
-            if ($request->status === 'rejected') {
-
-                $req->update([
-                    'status' => 'rejected',
-                ]);
-            }
+            $req->update([
+                'status' => $request->status,
+            ]);
         }
 
         return redirect()->back()->with('success', 'Status permintaan diperbarui.');

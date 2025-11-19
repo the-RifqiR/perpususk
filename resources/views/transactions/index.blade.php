@@ -34,12 +34,12 @@
                         <td class="px-6 py-4 border-r">{{ $loop->iteration }}</td>
 
                         <td class="px-6 py-4 border-r">
-                            <p class="font-medium text-gray-900">{{ $t->pengunjung->name }}</p>
+                            <p class="font-medium text-gray-900">{{ $t->pengunjung->name ?? '⚠️ Akun Terhapus' }}</p>
                             <p class="text-xs text-gray-500">{{ $t->pengunjung->username ?? '-' }}</p>
                         </td>
                         
                         <td class="px-6 py-4 border-r">
-                            <p class="font-medium text-gray-900">{{ $t->petugas->name }}</p>
+                            <p class="font-medium text-gray-900">{{ $t->petugas->name ?? '⚠️ Akun Terhapus'}}</p>
                             <p class="text-xs text-gray-500">{{ $t->petugas->username ?? '-' }}</p>
                         </td>
 
