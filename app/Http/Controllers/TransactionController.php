@@ -6,6 +6,7 @@ use App\Models\RequestPeminjaman;
 use App\Models\Transaction;
 use App\Models\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
@@ -13,8 +14,15 @@ class TransactionController extends Controller
     // Petugas lihat semua transaksi
     public function index()
     {
-        $transactions = Transaction::with(['pengunjung', 'book', 'request'])->latest()->get();
+        $transactions = Transaction::with(['pengunjung', 'book', 'request'])->latest()->paginate(15);
         return view('transactions.index', compact('transactions'));
+    }
+
+    public function pengunjungDashboard()
+    {
+        $transactions = Transaction::where('users_id_pengunjung', Auth::id())->with(['book', 'pengunjung', 'petugas'])->latest()->paginate(15);
+
+        return view('transactions.list', compact('transactions'));
     }
 
     // Ubah status menjadi dikembalikan

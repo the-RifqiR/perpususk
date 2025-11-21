@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.petugas.main')
 
 @section('title', 'Daftar Request Peminjaman')
 
@@ -32,7 +32,7 @@
                 <tbody>
                     @forelse($requests as $req)
                     <tr class="border-b border-gray-300 hover:bg-gray-100">
-                        <td class="px-6 py-4 border-r">{{ $requests->firstItem() +$loop->index }}</td>
+                        <td class="px-6 py-4 border-r">{{ $requests->firstItem() + $loop->index }}</td>
 
                         <td class="px-6 py-4 border-r">
                             <p class="font-medium text-gray-900">{{ $req->user->name ?? '⚠️ Akun Terhapus' }}</p>

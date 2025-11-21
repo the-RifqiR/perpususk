@@ -15,7 +15,7 @@ class RequestPeminjamanController extends Controller
     // kirim 
     public function index()
     {
-        $requests = RequestPeminjaman::with(['user', 'book'])->latest()->get();
+        $requests = RequestPeminjaman::with(['user', 'book'])->latest()->paginate(15);
         return view('requests.index', compact('requests'));
     }
 

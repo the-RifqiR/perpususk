@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.pengunjung.main')
 
 @section('title', 'Request Peminjaman')
 
