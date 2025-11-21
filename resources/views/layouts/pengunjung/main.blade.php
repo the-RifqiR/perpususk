@@ -161,6 +161,21 @@
     {{-- Main Content --}}
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         @yield('content')
+        {{-- Modal --}}
+        <div id="modalWarning" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center">
+            <div class="relative bg-white p-6 rounded shadow w-80 text-center">
+    
+                <!-- Tombol Close -->
+                <button id="modalBtnClose" class="absolute top-2 right-2 text-gray-600 hover:text-gray-800 text-xl">
+                    &times;
+                </button>
+    
+                <p id="modalMessage" class="mb-4 text-gray-800"></p>
+                <a id="modalButton" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                    Login
+                </a>
+            </div>
+        </div>
     </main>
 
     {{-- Footer --}}
@@ -172,64 +187,55 @@
         </div>
     </footer>
 
-    {{-- Modal --}}
-    <div id="modalWarning" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center">
-        <div class="relative bg-white p-6 rounded shadow w-80 text-center">
-
-            <!-- Tombol Close -->
-            <button id="modalBtnClose" class="absolute top-2 right-2 text-gray-600 hover:text-gray-800 text-xl">
-                &times;
-            </button>
-
-            <p id="modalMessage" class="mb-4 text-gray-800"></p>
-            <a id="modalButton" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-                Login
-            </a>
-        </div>
-    </div>
 
     {{-- Alpine --}}
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
-    <script>
-        // Bukan error kode cuman error VS CODE
-        window.USER = {!! json_encode([
-            'checkLogin' => Auth::check(),
-            'role' => optional(Auth::user())->role,
-            'riwayatUrl' => route('pengunjung.list'),
-            'loginUrl' => route('login'),
-        ]) !!};
-    </script>
-
-    <script>
-        function showModal(message, link) {
-            document.getElementById('modalMessage').innerText = message;
-            document.getElementById('modalButton').setAttribute('href', link)
-            document.getElementById('modalWarning').classList.remove('hidden');
-        };
-
-
-        document.getElementById('modalBtnClose').addEventListener('click', function() {
-            document.getElementById('modalWarning').classList.add('hidden');
-        });
-
-        document.getElementById('btnRiwayat').addEventListener('click', function(e) {
-            e.preventDefault();
-
-            if (!window.USER.checkLogin) {
-                showModal('Anda harus login dulu', window.USER.loginUrl);
-                return;
+        <script>
+            window.APP = {
+                user: {
+                    checkLogin: @json(Auth::check()),
+                    role: @json(optional(Auth::user())->role),
+                },
+                routes:{
+                    riwayatUrl: @json(route('pengunjung.list')),
+                    requestUrl: @json(route('requests.create', ['book' => 'BOOK_ID'])),
+                    loginUrl: @json(route('login')),
+                }
             };
+        </script>
 
-            if (window.USER.role !== 'pengunjung') {
-                showModal('Akses khusus pengunjung', window.USER.loginUrl);
-                return;
+        <script>
+            function showModal(message, link = '#') {
+                document.getElementById('modalMessage').innerText = message;
+                document.getElementById('modalButton').href = link;
+                document.getElementById('modalWarning').classList.remove('hidden');
             };
 
 
-            window.location.href = window.USER.riwayatUrl;
-        });
-    </script>
+            document.getElementById('modalBtnClose').addEventListener('click', function() {
+                document.getElementById('modalWarning').classList.add('hidden');
+            });
+
+            document.getElementById('btnRiwayat').addEventListener('click', function(e) {
+                e.preventDefault();
+
+                if (!APP.user.checkLogin) {
+                    return showModal('Anda harus login dulu', APP.routes.loginUrl);
+                    
+                };
+
+                if (APP.user.role !== 'pengunjung') {
+                    return showModal('Akses khusus pengunjung', APP.routes.loginUrl);
+                
+                };
+
+
+                window.location.href = APP.routes.riwayatUrl;
+            });
+        </script>
+
+        @yield('scripts')
 
 </body>
 
